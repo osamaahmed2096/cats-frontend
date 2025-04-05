@@ -1,5 +1,12 @@
 import React from 'react';
 
+type DeliveryData = {
+  freeGift: boolean;
+  title: string;
+  message: string;
+  totalPrice: number;
+}
+
 // Encapsulated here for simplicity, could be extracted if reused elsewhere
 const ErrorComponent = ({ message }: { message: string }) => {
   return (
@@ -11,7 +18,7 @@ const ErrorComponent = ({ message }: { message: string }) => {
 
 // Fetches the delivery data from the API and either returns the data or an error message
 // it could've been moved to a utils file but in this case it's only used here so no need
-const fetchDeliveryData = async (userId: string) => {
+const fetchDeliveryData = async (userId: string): Promise<{ data?: DeliveryData; error?: string }> => {
   try {
     const res = await fetch(`${process.env.BASE_URL}/comms/your-next-delivery/${userId}`);
 
@@ -32,11 +39,13 @@ const fetchDeliveryData = async (userId: string) => {
   }
 };
 
-const WelcomePage = async ({ params }: { params: { userId: string } }) => {
+const WelcomePage = async ({ params }: { params: Promise<{ userId: string }> }) => {
   const { userId } = await params;
   const { data, error } = await fetchDeliveryData(userId);
 
   if (error) return <ErrorComponent message={error} />;
+
+  if (!data) return <ErrorComponent message="No delivery data found." />;
 
   const { freeGift, title, message, totalPrice } = data;
 
