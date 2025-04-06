@@ -8,7 +8,6 @@
 ### 1. Set up the backend
 
 This frontend app depends on the [cats backend](../cats-backend).
-Make sure it is running locally on the port defined in your `.env`.
 
 Follow the backend README to install and run it.
 
