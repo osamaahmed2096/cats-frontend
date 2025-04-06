@@ -7,7 +7,7 @@
 
 ### 1. Set up the backend
 
-This frontend app depends on the [cats backend](../cats-backend).
+This frontend app depends on the [cats backend](https://github.com/osamaahmed2096/cats-backend).
 
 Follow the backend README to install and run it.
 
